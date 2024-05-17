@@ -24,24 +24,7 @@ const PizzaOrderForm = (props: IPizzaOrderFormProps): JSX.Element => {
 
   const [message, setMessage] = useState<string>("");
 
-  const [timer, setTimer] = useState(0);
-
   const history = useNavigate();
-
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    if (order.orderId) {
-      // Start timer when order ID is generated
-      intervalId = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(intervalId); // Clear interval on component unmount or new order submission
-    };
-  }, [order.orderId]);
 
   const handleRadioCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -70,16 +53,15 @@ const PizzaOrderForm = (props: IPizzaOrderFormProps): JSX.Element => {
     props.setOrderIdCounter(props.orderIdCounter + 1);
     const updatedOrderData: IPizzaOrder = {
       data: updatedOrder,
-      timer: timer,
+      timer: 0,
       stageName: stagesHeader[0],
-      totalTime: timer,
+      totalTime: 0,
       readyToPicked: false,
       orderId: orderId,
       Picked: false,
       placementTime: new Date(),
       newPlacementDate: new Date(),
     };
-    setTimer(0);
     props.setOrderData([...props.orderData, updatedOrderData]);
     setMessage("");
     history("/detailsSection");
@@ -91,8 +73,15 @@ const PizzaOrderForm = (props: IPizzaOrderFormProps): JSX.Element => {
 
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>Pizza Shop</h1>
-      <div style={{ display: "flex", justifyContent: "center", color: "red" }}>
+      <h1 style={{ textAlign: "center", cursor: "default" }}>Pizza Shop</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          color: "red",
+          cursor: "default",
+        }}
+      >
         {message}
       </div>
       <form onSubmit={handleSubmit} className={FormContainerStyles}>

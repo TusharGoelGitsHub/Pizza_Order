@@ -7,9 +7,7 @@ import { IPizzaOrder } from "./components/PizzaOrderForm/PizzaOrderForm.types";
 function App() {
   const [orderData, setOrderData] = useState<IPizzaOrder[]>([]);
   const [orderIdCounter, setOrderIdCounter] = useState<number>(1);
-  useEffect(() => {
-    console.log(orderData);
-  }, [orderData]);
+
   return (
     <div>
       <Router>

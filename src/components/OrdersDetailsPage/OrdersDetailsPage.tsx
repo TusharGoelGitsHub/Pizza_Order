@@ -122,12 +122,13 @@ const OrdersDetailsPage = (props: IOrderDetailsProps): JSX.Element => {
                 <>
                   {data.stageName === stage && (
                     <OrderCard
-                      key={data.orderId} // Ensure each card has a unique key
+                      key={data.orderId}
                       timer={getTimerForOrder(data)}
                       orderId={data.orderId}
                       readyToPick={data.readyToPicked}
                       handleClickToMove={() => handleOrderClickToMove(data, i)}
                       delayTimer={getDelayTimer(data.data.size)}
+                      data={data}
                     />
                   )}
                 </>
@@ -164,7 +165,18 @@ const OrdersDetailsPage = (props: IOrderDetailsProps): JSX.Element => {
               >
                 {row.stageName === stagesHeader[2] ||
                 row.stageName === stagesHeader[3] ? null : (
-                  <div style={{ cursor: "pointer" }}>Cancel Button</div>
+                  <button
+                    style={{
+                      cursor: "pointer",
+                      width: "-webkit-fill-available",
+                      background: "#ff4646",
+                      border: "1px solid rosybrown",
+                      fontSize: "medium",
+                      color: "white",
+                    }}
+                  >
+                    Cancel
+                  </button>
                 )}
               </td>
             </tr>

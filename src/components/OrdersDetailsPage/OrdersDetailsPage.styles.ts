@@ -1,6 +1,9 @@
 import { mergeStyles } from "@fluentui/react";
 
-export const pizzaSectionStyles = mergeStyles({ margin: "30px 5% 0px" });
+export const pizzaSectionStyles = mergeStyles({
+  margin: "30px 5% 0px",
+  cursor: "default",
+});
 
 export const sectionContainerStyles = mergeStyles({
   margin: "30px 5% 60px",

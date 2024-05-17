@@ -16,6 +16,7 @@ export const headerStyles = mergeStyles({
   fontSize: 34,
   fontWeight: 500,
   textAlign: "center",
+  cursor: "default",
 });
 
 export const buttonStyles = (isDisabled: boolean) =>

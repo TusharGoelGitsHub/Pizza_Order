@@ -6,4 +6,5 @@ export interface IOrderCardProps {
   readyToPick: boolean;
   handleClickToMove: () => void;
   delayTimer: number;
+  data: IPizzaOrder;
 }

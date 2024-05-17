@@ -1,3 +1,5 @@
+import React from "react";
+import { TooltipHost, DirectionalHint } from "@fluentui/react";
 import { formatTime } from "../../helper";
 import { IOrderCardProps } from "./OrderCard.types";
 import {
@@ -9,43 +11,54 @@ import {
 } from "./OrderCard.styles";
 
 const OrderCard = (props: IOrderCardProps): JSX.Element => {
-  return (
-    <div
-      className={orderCardContainerStyles(
-        props.readyToPick,
-        props.timer,
-        props.delayTimer
-      )}
-    >
+  const { data, readyToPick, timer, delayTimer, orderId, handleClickToMove } =
+    props;
+
+  const orderDetails = (): JSX.Element => {
+    return (
       <div
-        className={orderCardHeaderStyles(
-          props.readyToPick,
-          props.timer,
-          props.delayTimer
-        )}
-      >{`Order ${props.orderId}`}</div>
-      {!props.readyToPick && (
-        <div
-          className={orderCardTimerStyles(
-            props.readyToPick,
-            props.timer,
-            props.delayTimer
-          )}
-        >
-          {formatTime(props.timer)}
+        style={{
+          width: 100,
+          padding: 10,
+          textAlign: "center",
+          fontWeight: 500,
+        }}
+      >
+        <div style={{ fontSize: 14, marginBottom: 5 }}>
+          Size: {data.data.size}
         </div>
-      )}
-      {props.readyToPick ? (
-        <div className={orderCardPickedStyles}>Picked</div>
-      ) : (
-        <button
-          className={orderCardButtonStyles}
-          onClick={() => props.handleClickToMove()}
-        >
-          Next
-        </button>
-      )}
-    </div>
+        <div style={{ fontSize: 14, marginBottom: 5 }}>
+          Type: {data.data.type}
+        </div>
+        <div style={{ fontSize: 14 }}>Base: {data.data.base}</div>
+      </div>
+    );
+  };
+
+  return (
+    <TooltipHost
+      content={orderDetails()}
+      directionalHint={DirectionalHint.bottomCenter}
+    >
+      <div className={orderCardContainerStyles(readyToPick, timer, delayTimer)}>
+        <div
+          className={orderCardHeaderStyles(readyToPick, timer, delayTimer)}
+        >{`Order ${orderId}`}</div>
+        {!readyToPick && (
+          <div className={orderCardTimerStyles(readyToPick, timer, delayTimer)}>
+            {formatTime(timer)}
+          </div>
+        )}
+        {readyToPick ? (
+          <div className={orderCardPickedStyles}>Picked</div>
+        ) : (
+          <button className={orderCardButtonStyles} onClick={handleClickToMove}>
+            Next
+          </button>
+        )}
+      </div>
+    </TooltipHost>
   );
 };
+
 export default OrderCard;
