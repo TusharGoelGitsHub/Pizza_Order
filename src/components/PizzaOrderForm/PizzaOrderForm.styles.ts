@@ -2,7 +2,6 @@ import { mergeStyles } from "@fluentui/react";
 
 export const FormContainerStyles = mergeStyles({
   width: "45%",
-  height: 300,
   background: "#E9E6DD",
   margin: "40px auto 50px",
   padding: "20px 2%",
